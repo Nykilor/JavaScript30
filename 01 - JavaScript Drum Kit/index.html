@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Drum Kit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+  <div class="keys">
+    <div data-key="65" class="key">
+      <kbd>A</kbd>
+      <span class="sound">clap</span>
+    </div>
+    <div data-key="83" class="key">
+      <kbd>S</kbd>
+      <span class="sound">hihat</span>
+    </div>
+    <div data-key="68" class="key">
+      <kbd>D</kbd>
+      <span class="sound">kick</span>
+    </div>
+    <div data-key="70" class="key">
+      <kbd>F</kbd>
+      <span class="sound">openhat</span>
+    </div>
+    <div data-key="71" class="key">
+      <kbd>G</kbd>
+      <span class="sound">boom</span>
+    </div>
+    <div data-key="72" class="key">
+      <kbd>H</kbd>
+      <span class="sound">ride</span>
+    </div>
+    <div data-key="74" class="key">
+      <kbd>J</kbd>
+      <span class="sound">snare</span>
+    </div>
+    <div data-key="75" class="key">
+      <kbd>K</kbd>
+      <span class="sound">tom</span>
+    </div>
+    <div data-key="76" class="key">
+      <kbd>L</kbd>
+      <span class="sound">tink</span>
+    </div>
+  </div>
+<details class="options">
+    <summary>Options</summary>
+    <h2>Volume</h2>
+    <input class="volume" type="range" min="0" max="100" value="100">
+</details>
+  <audio data-key="65" src="sounds/clap.wav"></audio>
+  <audio data-key="83" src="sounds/hihat.wav"></audio>
+  <audio data-key="68" src="sounds/kick.wav"></audio>
+  <audio data-key="70" src="sounds/openhat.wav"></audio>
+  <audio data-key="71" src="sounds/boom.wav"></audio>
+  <audio data-key="72" src="sounds/ride.wav"></audio>
+  <audio data-key="74" src="sounds/snare.wav"></audio>
+  <audio data-key="75" src="sounds/tom.wav"></audio>
+  <audio data-key="76" src="sounds/tink.wav"></audio>
+
+<script>
+    //removes class after transition finishes
+  function removeTransition(e) {
+    if (e.propertyName !== 'transform') return;
+    e.target.classList.remove('playing');
+  }
+    //plays sound
+  function playSound(audio) {
+      audio.currentTime = 0;
+      audio.play();
+  }
+    //initializes sound play on key press
+  function playSoundOnKeyPress(e) {
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+    if (!audio) return;
+
+    key.classList.add('playing');
+    playSound(audio);
+  }
+    //initializes sound play after click on one of the keys
+  function playSoundOnClick() {
+      const key = this.getAttribute("data-key");
+      const audio = document.querySelector(`audio[data-key="${key}"]`);
+      
+      if (!audio) return;
+      
+      this.classList.add("playing");
+      playSound(audio);
+  }
+    //changes volume on all audio elements 
+  function changeVolume() {
+      const audios = document.querySelectorAll("audio");
+      audios.forEach(key => key.volume = this.value / 100);
+  }
+    //gets array of keys from document
+  const keys = Array.from(document.querySelectorAll('.key'));
+    //adds listener of if transistion ends
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+    //adds listener to the WINDOW if there was a button pressed
+  window.addEventListener('keydown', playSoundOnKeyPress);
+    //adds listener to every key if it was clicked
+  keys.forEach(key => key.addEventListener('click', playSoundOnClick));
+    //adds listener to volume range if it was changed
+  const volume = document.querySelector(".volume");
+  volume.addEventListener('change', changeVolume);
+    
+</script>
+
+
+</body>
+</html>
