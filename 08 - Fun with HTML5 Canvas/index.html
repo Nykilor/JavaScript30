@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+  <header class="options">
+    <div id="options">
+      <div class="option">
+        <input type="checkbox" name="rainbow" id="rainbow" data-variable="rainbow" hidden>
+        <label for="rainbow">Rainbow</label>
+      </div>
+      <div class="option">
+        <input type="checkbox" name="growShrink" id="growShrink" data-variable="growShrink" hidden>
+        <label for="growShrink">Grow Shrink</label>
+      </div>
+      <div class="option">
+        <input type="color" value="#BADA55" id="color" name="color">
+      </div>
+      <div class="option">
+        Width: <input type="number" name="width" id="width" value="15">
+      </div>
+      <div class="option">
+        <button type="button" name="clear" id="clear">CLEAR</button>
+      </div>
+    </div>
+  </header>
+  <canvas id="draw" width="800" height="800"></canvas>
+<script src="javascript.js"></script>
+</body>
+</html>

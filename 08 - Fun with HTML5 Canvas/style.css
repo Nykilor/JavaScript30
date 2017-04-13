@@ -1,0 +1,31 @@
+html, body {
+  margin:0;
+}
+div#options {
+  display: flex;
+  flex-direction: row;
+}
+.options {
+  width: 100%;
+  height: 6%;
+  background-color: gray;
+}
+.option input[type="checkbox"]:checked + label {
+  background-color: red;
+}
+.option {
+  display: inline-block;
+  display: flex;
+  align-content: center;
+  align-self: center;
+  padding: 3px;
+}
+.option input[type="number"] {
+  width: 50%;
+}
+input, label {
+  cursor: pointer;
+}
+canvas {
+  cursor: crosshair;
+}
